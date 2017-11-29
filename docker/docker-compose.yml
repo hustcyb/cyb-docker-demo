@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nexus:
+    container_name: nexus
+    image: sonatype/nexus
+    ports:
+      - "8081:8081"
+
+  registry:
+    container_name: registry
+    image: registry
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./certs:/certs
+    environment:
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/certs/localhost.crt
+      - REGISTRY_HTTP_TLS_KEY=/certs/localhost.key
+    restart: always
